@@ -15,6 +15,8 @@ export const Login = () => {
             password
         });
 
+        console.log(response);
+        
         if (!response)
         {
             setError(true);
@@ -27,7 +29,7 @@ export const Login = () => {
             <div className="login-content">
                 <img className="logo" src="imgs/hacktown.png" alt="Hacktown Logo" />
                 <form onSubmit={handleSubmit}>
-                    <div className="form-group">
+                    <div className={`form-group ${error ? 'error': ''}`}>
                         <label htmlFor="username">E-mail</label>
                         <input
                             type="text"
@@ -37,7 +39,7 @@ export const Login = () => {
                             onChange={(e) => setUsername(e.target.value)}
                         />
                     </div>
-                    <div className="form-group">
+                    <div className={`form-group ${error ? 'error': ''}`}>
                         <label htmlFor="password">Senha</label>
                         <input
                             type="password"
@@ -46,12 +48,12 @@ export const Login = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
+                        {error && (
+                            <div className="alert alert-danger" role="alert">
+                                Senha ou email incorretos.
+                            </div>
+                        )}
                     </div>
-                    {error && (
-                        <div className="alert alert-danger" role="alert">
-                            Senha ou email incorretos.
-                        </div>
-                    )}
                     <button type="submit" className="btn">
                         Entrar
                     </button>

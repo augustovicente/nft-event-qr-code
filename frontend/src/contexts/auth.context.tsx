@@ -82,21 +82,25 @@ export const AuthProvider = ({ children }: PropsProvider) => {
             }
             else
             {
-                return toast.error('Desculpe. Não foi possível realizar o login.')
+                throw new Error('Unauthorized');
             }
         }
-        catch (error) {
+        catch (error)
+        {
             setLoading(false);
 
-            if (axios.isAxiosError(error)) {
-                if (error.response?.status === 405) {
+            if (axios.isAxiosError(error))
+            {
+                if (error.response?.status === 405)
+                {
                     return toast.error(error?.response?.data?.message);
                 }
 
-                return toast.error("E-mail ou senha incorretos.");
-            } else {
-                console.log('unexpected error: ', error);
-                return toast.error("Erro ao realizar login, tente novamente");
+                return false;
+            }
+            else
+            {
+                return false;
             }
         }
     }, []);

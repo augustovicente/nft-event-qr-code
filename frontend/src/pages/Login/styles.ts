@@ -53,6 +53,22 @@ export const LoginContainer = styled.div`
                     display: flex;
                     font-family: ${({ theme }) => theme.fontFamily.default};
                     font-size: ${({ theme }) => theme.fontSizes.paragraph};
+                    
+                }
+                div.alert-danger{
+                    font-family: ${({ theme }) => theme.fontFamily.default};
+                    color: ${({ theme }) => theme.colors.yellow};
+                    font-size: ${({ theme }) => theme.fontSizes.paragraph};
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding-top: 10px;
+                    width: 100%;
+                }
+                &.error{
+                    input.form-control{
+                        border: 2px solid ${({ theme }) => theme.colors.yellow};
+                    }
                 }
             }
             button.btn{
