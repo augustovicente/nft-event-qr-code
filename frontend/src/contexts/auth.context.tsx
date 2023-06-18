@@ -70,7 +70,8 @@ export const AuthProvider = ({ children }: PropsProvider) => {
 
             const { token, user } = response.data;
 
-            if (token && user) {
+            if (token && user)
+            {
                 localStorage.setItem(`${PREFIX_AUTH}:token`, JSON.stringify(token))
                 localStorage.setItem(`${PREFIX_AUTH}:user`, JSON.stringify(user))
 
@@ -78,7 +79,9 @@ export const AuthProvider = ({ children }: PropsProvider) => {
                 setLoading(false);
 
                 navigate('/', { replace: true });
-            } else {
+            }
+            else
+            {
                 return toast.error('Desculpe. Não foi possível realizar o login.')
             }
         }

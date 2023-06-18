@@ -39,7 +39,7 @@ class LoginController
 
         const token = jwt.sign({ id: user.id, email: user.email });
 
-        res.status(StatusCodes.OK).json({ token });
+        res.status(StatusCodes.OK).json({ user, token });
     }
 }
 

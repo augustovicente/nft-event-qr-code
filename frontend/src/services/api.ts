@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import { PREFIX_AUTH } from 'utils/constants';
 
 export const api = axios.create({
@@ -32,10 +33,10 @@ const errorHandler = (error: any) => {
 
 // Intercerpetor de requisições
 api.interceptors.request.use((config) => {
-    let token = localStorage.getItem(`${PREFIX_AUTH}:token`);
+    const token = localStorage.getItem(`${PREFIX_AUTH}:token`);
 
     if (token !== null) {
-        config.headers = {
+        config['headers'] = {
             'Authorization': `Bearer ${JSON.parse(token)}`,
         }
     }

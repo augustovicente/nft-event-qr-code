@@ -1,19 +1,25 @@
 import { useState } from "react";
 import { LoginContainer } from "./styles";
+import { useAuth } from "contexts/auth.context";
 
 export const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
+    const { signIn } = useAuth();
     
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const response = await login(username, password);
-        if (!response) {
+        const response = await signIn({
+            email: username,
+            password
+        });
+
+        if (!response)
+        {
             setError(true);
             return;
         }
-        history.push("/");
     };
     return (
         <LoginContainer>
