@@ -26,6 +26,24 @@ export const QRCodeScanConteiner = styled.div`
             height: 50px;
             width: auto;
         }
+        div.pre-qr {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            img{
+                height: auto;
+                width: 200px;
+            }
+            button.btn-scan{
+                background-color: ${({ theme }) => theme.colors.yellow};
+                color: ${({ theme }) => theme.colors.black};
+                font-family: ${({ theme }) => theme.fontFamily.default};
+                font-weight: 800;
+                width: 200px;
+            }
+        }
         span.by-capitel{
             font-family: ${({ theme }) => theme.fontFamily.default};
             color: ${({ theme }) => theme.colors.green};
