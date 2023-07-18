@@ -53,7 +53,20 @@ export const LoginContainer = styled.div`
                     display: flex;
                     font-family: ${({ theme }) => theme.fontFamily.default};
                     font-size: ${({ theme }) => theme.fontSizes.paragraph};
-                    
+                }
+                div.pwd-content{
+                    width: 100%;
+                    position: relative;
+                    i{
+                        position: absolute;
+                        right: 20px;
+                        top: 10px;
+                        color: ${({ theme }) => theme.colors.yellow};
+                        font-size: ${({ theme }) => theme.fontSizes.heading3};
+                        cursor: pointer;
+                        height: 10px;
+                        width: 10px;
+                    }
                 }
                 div.alert-danger{
                     font-family: ${({ theme }) => theme.fontFamily.default};

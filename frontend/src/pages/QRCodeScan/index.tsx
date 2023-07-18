@@ -8,7 +8,7 @@ export const QRCodeScan = () =>
 {
     const [data, setData] = useState<string | null>(null);
     const [isReading, setIsReading] = useState<boolean>(false);
-    const [loadingModal, setLoadingModal] = useState(true);
+    const [loadingModal, setLoadingModal] = useState(false);
 
     Modal.setAppElement('#root');
 

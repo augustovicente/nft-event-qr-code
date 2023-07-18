@@ -6,6 +6,7 @@ export const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
+    const [seePwd, setSeePwd] = useState(false);
     const { signIn } = useAuth();
     
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -41,13 +42,20 @@ export const Login = () => {
                     </div>
                     <div className={`form-group ${error ? 'error': ''}`}>
                         <label htmlFor="password">Senha</label>
-                        <input
-                            type="password"
-                            className="form-control"
-                            id="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
+                        <div className="pwd-content">
+                            <input
+                                type={seePwd ? 'text' : 'password'}
+                                className="form-control"
+                                id="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            {seePwd ? (
+                                <i className="ph ph-eye-slash" onClick={() => setSeePwd(false)}></i>
+                            ) : (
+                                <i className="ph ph-eye" onClick={() => setSeePwd(true)}></i>
+                            )}
+                        </div>
                         {error && (
                             <div className="alert alert-danger" role="alert">
                                 Senha ou email incorretos.
