@@ -3,12 +3,31 @@ import { QRCodeScanConteiner } from "./styles"
 import { QrReader } from 'react-qr-reader';
 import Modal from 'react-modal';
 import { api } from "services/api";
+import { FeedbackModal } from "./components/FeedbackModal";
 
 export const QRCodeScan = () =>
 {
+    type ModalProps = {
+        isOpen: boolean;
+        text: string;
+    }
     const [data, setData] = useState<string | null>(null);
     const [isReading, setIsReading] = useState<boolean>(false);
-    const [loadingModal, setLoadingModal] = useState(false);
+
+    const [loadingModal, setLoadingModal] = useState<ModalProps>({
+        isOpen: false,
+        text: '',
+    });
+
+    const [errorModal, setErrorModal] = useState<ModalProps>({
+        isOpen: false,
+        text: '',
+    });
+
+    const [successModal, setSuccessModal] = useState<ModalProps>({
+        isOpen: false,
+        text: '',
+    });
 
     Modal.setAppElement('#root');
 
@@ -16,18 +35,52 @@ export const QRCodeScan = () =>
         if (data)
         {
             setIsReading(false);
-            setLoadingModal(true);
+            setLoadingModal({
+                isOpen: true,
+                text: 'Lendo Carteira',
+            });
             api.post('/validate-wallet', { wallet: data }).then((response) => {
-                if (response.data)
+                if (response.data.error)
+                {
+                    switch (response.data.error)
+                    {
+                        case 'wallet-not-valid':
+                            setErrorModal({
+                                isOpen: true,
+                                text: 'Carteira inválida',
+                            });
+                            break;
+                        case 'item-already-redeemed':
+                            setErrorModal({
+                                isOpen: true,
+                                text: 'Item já resgatado',
+                            });
+                            break;
+                        case 'item-not-found-in-wallet':
+                            setErrorModal({
+                                isOpen: true,
+                                text: 'Colecionável não encontrado na carteira',
+                            });
+                            break;
+                    }
+                }
+                else if (response.data.success)
                 {
                     console.log('carteira válida')
                 }
             })
             .catch((error) => {
-                console.error('carteira inválida', error)
+                console.error(error);
+                setErrorModal({
+                    isOpen: true,
+                    text: 'Erro na requisição',
+                });
             })
             .finally(() => {
-                setLoadingModal(false);
+                setLoadingModal({
+                    isOpen: false,
+                    text: '',
+                });
             });
         }
     }, [data]);
@@ -78,10 +131,24 @@ export const QRCodeScan = () =>
             </div>
 
             <Modal
-                isOpen={loadingModal}
+                isOpen={loadingModal.isOpen}
                 className={'scan-modal'}
             >
-                
+                <FeedbackModal text={loadingModal.text} type="loading" />
+            </Modal>
+
+            <Modal
+                isOpen={errorModal.isOpen}
+                className={'scan-modal'}
+            >
+                <FeedbackModal text={errorModal.text} type="error" />
+            </Modal>
+
+            <Modal
+                isOpen={successModal.isOpen}
+                className={'scan-modal'}
+            >
+                <FeedbackModal text={successModal.text} type="success" />
             </Modal>
         </QRCodeScanConteiner>
     )
