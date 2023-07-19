@@ -4,6 +4,7 @@ import { QrReader } from 'react-qr-reader';
 import Modal from 'react-modal';
 import { api } from "services/api";
 import { FeedbackModal } from "./components/FeedbackModal";
+import { ItemFound } from "./components/ItemFound";
 
 export const QRCodeScan = () =>
 {
@@ -27,6 +28,12 @@ export const QRCodeScan = () =>
     const [successModal, setSuccessModal] = useState<ModalProps>({
         isOpen: false,
         text: '',
+    });
+
+    const [itemModal, setItemModal] = useState({
+        isOpen: true,
+        itemUrl: 'https://solanart.io/_next/image?url=https%3A%2F%2Fapi-v2.solanart.io%2Fcdn%2F500%2Fhttps%3A%2F%2Fwww.arweave.net%2FicA7vfsZ9Uhw70qbpkZ2vyrQTyuePW67x-xHOMsWF78%3Fext%3Dpng&w=3840&q=75',
+        itemId: 1,
     });
 
     Modal.setAppElement('#root');
@@ -131,6 +138,21 @@ export const QRCodeScan = () =>
             </div>
 
             <Modal
+                shouldCloseOnOverlayClick={true}
+                onRequestClose={() => {
+                    setItemModal({
+                        isOpen: false,
+                        itemUrl: '',
+                        itemId: 0,
+                    });
+                }}
+                isOpen={itemModal.isOpen}
+                className={'item-modal'}
+            >
+                <ItemFound item_id={itemModal.itemId} item_url={itemModal.itemUrl} />
+            </Modal>
+
+            <Modal
                 isOpen={loadingModal.isOpen}
                 className={'scan-modal'}
             >
@@ -138,6 +160,13 @@ export const QRCodeScan = () =>
             </Modal>
 
             <Modal
+                shouldCloseOnOverlayClick={true}
+                onRequestClose={() => {
+                    setErrorModal({
+                        isOpen: false,
+                        text: '',
+                    });
+                }}
                 isOpen={errorModal.isOpen}
                 className={'scan-modal'}
             >
@@ -145,6 +174,13 @@ export const QRCodeScan = () =>
             </Modal>
 
             <Modal
+                shouldCloseOnOverlayClick={true}
+                onRequestClose={() => {
+                    setSuccessModal({
+                        isOpen: false,
+                        text: '',
+                    });
+                }}
                 isOpen={successModal.isOpen}
                 className={'scan-modal'}
             >

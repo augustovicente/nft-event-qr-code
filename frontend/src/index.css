@@ -89,3 +89,19 @@ div.scan-modal{
     border-radius: 10px;
     z-index: 9999;
 }
+
+div.item-modal{
+    width: 250px;
+    height: 400px;
+    margin:0 auto;
+    display:table;
+    position: absolute;
+    left: 0;
+    right:0;
+    top: 50%; 
+    border:1px solid;
+    transform:translateY(-50%);
+    background-color: #fff;
+    border-radius: 10px;
+    z-index: 9998;
+}

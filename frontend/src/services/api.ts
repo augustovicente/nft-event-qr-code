@@ -37,7 +37,7 @@ api.interceptors.request.use((config) => {
 
     if (token !== null) {
         config['headers'] = {
-            'Authorization': `Bearer ${JSON.parse(token)}`,
+            'Authorization': `${JSON.parse(token)}`,
         }
     }
 

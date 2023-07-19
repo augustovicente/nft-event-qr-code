@@ -12,6 +12,26 @@ class NFTController
     }
     async validate_wallet(req: Request, res: Response, next: NextFunction)
     {
+        const isValid = false;
+        const isNotRedeeemed = true;
+        const itemFound = true;
+        
+        if (isValid && isNotRedeeemed && itemFound)
+        {
+            res.status(StatusCodes.OK).json({ success: true });
+        }
+        else if (!isValid)
+        {
+            res.status(StatusCodes.OK).json({ error: 'wallet-not-valid' });
+        }
+        else if (!isNotRedeeemed)
+        {
+            res.status(StatusCodes.OK).json({ error: 'item-already-redeemed' });
+        }
+        else if (!itemFound)
+        {
+            res.status(StatusCodes.OK).json({ error: 'item-not-found-in-wallet' });
+        }
 
     }
     async redeem_nft(req: Request, res: Response, next: NextFunction)
