@@ -6,17 +6,18 @@ export const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [seePwd, setSeePwd] = useState(false);
     const { signIn } = useAuth();
     
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        setLoading(true);
         event.preventDefault();
         const response = await signIn({
             email: username,
             password
         });
-
-        console.log(response);
+        setLoading(false);
         
         if (!response)
         {
@@ -64,6 +65,8 @@ export const Login = () => {
                     </div>
                     <button type="submit" className="btn">
                         Entrar
+                        {loading && (
+                            <img src="imgs/spinner.webp" />)}
                     </button>
                 </form>
                 <span className="by-capitel">by <b>Capitel</b></span>

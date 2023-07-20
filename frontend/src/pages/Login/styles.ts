@@ -91,6 +91,14 @@ export const LoginContainer = styled.div`
                 font-family: ${({ theme }) => theme.fontFamily.default};
                 font-size: ${({ theme }) => theme.fontSizes.heading3};
                 width: 100%;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                img{
+                    height: 20px;
+                    width: auto;
+                }
             }
         }
         span.by-capitel{
