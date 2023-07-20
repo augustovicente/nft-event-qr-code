@@ -12,13 +12,19 @@ class NFTController
     }
     async validate_wallet(req: Request, res: Response, next: NextFunction)
     {
-        const isValid = false;
+        const isValid = true;
         const isNotRedeeemed = true;
         const itemFound = true;
         
         if (isValid && isNotRedeeemed && itemFound)
         {
-            res.status(StatusCodes.OK).json({ success: true });
+            res.status(StatusCodes.OK).json({
+                success: true,
+                data: {
+                    item_url: 'https://solanart.io/_next/image?url=https%3A%2F%2Fapi-v2.solanart.io%2Fcdn%2F500%2Fhttps%3A%2F%2Fwww.arweave.net%2FicA7vfsZ9Uhw70qbpkZ2vyrQTyuePW67x-xHOMsWF78%3Fext%3Dpng&w=3840&q=75',
+                    item_id: '1',
+                }
+            });
         }
         else if (!isValid)
         {
@@ -36,7 +42,7 @@ class NFTController
     }
     async redeem_nft(req: Request, res: Response, next: NextFunction)
     {
-
+        res.status(StatusCodes.OK).json({ success: true });
     }
 }
 

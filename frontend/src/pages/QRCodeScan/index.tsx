@@ -5,13 +5,16 @@ import Modal from 'react-modal';
 import { api } from "services/api";
 import { FeedbackModal } from "./components/FeedbackModal";
 import { ItemFound } from "./components/ItemFound";
+import { useAuth } from "contexts/auth.context";
+
+type ModalProps = {
+    isOpen: boolean;
+    text: string;
+}
 
 export const QRCodeScan = () =>
 {
-    type ModalProps = {
-        isOpen: boolean;
-        text: string;
-    }
+    const { signOut } = useAuth();
     const [data, setData] = useState<string | null>(null);
     const [isReading, setIsReading] = useState<boolean>(false);
 
@@ -31,14 +34,15 @@ export const QRCodeScan = () =>
     });
 
     const [itemModal, setItemModal] = useState({
-        isOpen: true,
-        itemUrl: 'https://solanart.io/_next/image?url=https%3A%2F%2Fapi-v2.solanart.io%2Fcdn%2F500%2Fhttps%3A%2F%2Fwww.arweave.net%2FicA7vfsZ9Uhw70qbpkZ2vyrQTyuePW67x-xHOMsWF78%3Fext%3Dpng&w=3840&q=75',
+        isOpen: false,
+        itemUrl: '',
         itemId: 1,
     });
 
     Modal.setAppElement('#root');
 
     useEffect(() => {
+        console.log(data);
         if (data)
         {
             setIsReading(false);
@@ -46,7 +50,7 @@ export const QRCodeScan = () =>
                 isOpen: true,
                 text: 'Lendo Carteira',
             });
-            api.post('/validate-wallet', { wallet: data }).then((response) => {
+            api.post('/validate-wallet', { wallet: data }).then((response) => {                
                 if (response.data.error)
                 {
                     switch (response.data.error)
@@ -73,7 +77,11 @@ export const QRCodeScan = () =>
                 }
                 else if (response.data.success)
                 {
-                    console.log('carteira válida')
+                    setItemModal({
+                        isOpen: true,
+                        itemUrl: response.data.data.item_url,
+                        itemId: response.data.data.item_id,
+                    });
                 }
             })
             .catch((error) => {
@@ -92,6 +100,39 @@ export const QRCodeScan = () =>
         }
     }, [data]);
 
+    const handleRedeemItem = () => {
+        setLoadingModal({
+            isOpen: true,
+            text: 'Resgatando Item',
+        });
+        api.post('/redeem-nft', { wallet: data }).then((response) => {
+            if(response.data.success)
+            {
+                setSuccessModal({
+                    isOpen: true,
+                    text: 'Resgate realizado com sucesso',
+                });
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+            setErrorModal({
+                isOpen: true,
+                text: 'Erro na requisição',
+            });
+        })
+        .finally(() => {
+            setLoadingModal({
+                isOpen: false,
+                text: '',
+            });
+        });
+    }
+
+    const resetPage = () => {
+        window.location.reload();
+    }
+
     return (
         <QRCodeScanConteiner>
             <img className="background" src="imgs/background.png" alt="Background QR Scanner" />
@@ -109,6 +150,7 @@ export const QRCodeScan = () =>
                                 setData(result?.text);
                             }
                         }}
+                        scanDelay={1000}
                         videoContainerStyle={{ 
                             paddingTop: '0px',
                             display: 'flex',
@@ -137,6 +179,14 @@ export const QRCodeScan = () =>
                 <span className="by-capitel">by <b>Capitel</b></span>
             </div>
 
+            <button className="logout" onClick={() => {
+                signOut();
+                // redriect to login page
+                window.location.href = '/login';
+            }}>
+                Logout
+            </button>
+
             <Modal
                 shouldCloseOnOverlayClick={true}
                 onRequestClose={() => {
@@ -149,9 +199,11 @@ export const QRCodeScan = () =>
                 isOpen={itemModal.isOpen}
                 className={'item-modal'}
             >
-                <ItemFound item_id={itemModal.itemId} item_url={itemModal.itemUrl} onRedeemItem={() => {
-                    console.log('resgatar item');
-                }}/>
+                <ItemFound
+                    item_id={itemModal.itemId}
+                    item_url={itemModal.itemUrl}
+                    onRedeemItem={handleRedeemItem}
+                />
             </Modal>
 
             <Modal
@@ -182,6 +234,7 @@ export const QRCodeScan = () =>
                         isOpen: false,
                         text: '',
                     });
+                    resetPage();
                 }}
                 isOpen={successModal.isOpen}
                 className={'scan-modal'}

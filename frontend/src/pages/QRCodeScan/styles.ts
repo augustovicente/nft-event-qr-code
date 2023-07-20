@@ -7,6 +7,7 @@ export const QRCodeScanConteiner = styled.div`
     width: 100vw;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     img.background{
         height: 90%;
         width: 100%;
@@ -48,5 +49,11 @@ export const QRCodeScanConteiner = styled.div`
             font-family: ${({ theme }) => theme.fontFamily.default};
             color: ${({ theme }) => theme.colors.green};
         }
+    }
+    button.logout{
+        background-color: ${({ theme }) => theme.colors.red};
+        color: ${({ theme }) => theme.colors.white};
+        z-index: 12;
+        margin-top: 20px;
     }
 `;
