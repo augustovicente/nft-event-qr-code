@@ -62,9 +62,10 @@ const Container = styled.div`
 type ItemFoundProps = {
     item_id: number;
     item_url: string;
+    onRedeemItem: () => void;
 };
 
-export const ItemFound = ({ item_id, item_url }: ItemFoundProps) => {
+export const ItemFound = ({ item_id, item_url, onRedeemItem }: ItemFoundProps) => {
     return (<Container>
         <div className="header">
             <img src="imgs/confirmation-check.png" alt="Check de Confirmação de NFT" />
@@ -74,7 +75,9 @@ export const ItemFound = ({ item_id, item_url }: ItemFoundProps) => {
             <img src={item_url} alt="" />
         </div>
         <div className="footer">
-            <button className="redeem-item">Resgatar Item</button>
+            <button className="redeem-item" onClick={onRedeemItem}>
+                Resgatar Item
+            </button>
             <span>by <b>Capitel</b></span>
         </div>
     </Container>);

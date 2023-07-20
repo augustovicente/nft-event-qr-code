@@ -149,7 +149,9 @@ export const QRCodeScan = () =>
                 isOpen={itemModal.isOpen}
                 className={'item-modal'}
             >
-                <ItemFound item_id={itemModal.itemId} item_url={itemModal.itemUrl} />
+                <ItemFound item_id={itemModal.itemId} item_url={itemModal.itemUrl} onRedeemItem={() => {
+                    console.log('resgatar item');
+                }}/>
             </Modal>
 
             <Modal
