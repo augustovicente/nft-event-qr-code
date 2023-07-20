@@ -101,9 +101,5 @@ export const LoginContainer = styled.div`
                 }
             }
         }
-        span.by-capitel{
-            font-family: ${({ theme }) => theme.fontFamily.default};
-            color: ${({ theme }) => theme.colors.green};
-        }
     }
 `;

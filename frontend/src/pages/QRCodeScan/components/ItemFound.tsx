@@ -1,3 +1,4 @@
+import { ByCapitel } from "components/ByCapitel/ByCapitel";
 import { styled } from "styled-components";
 
 const Container = styled.div`
@@ -78,7 +79,7 @@ export const ItemFound = ({ item_id, item_url, onRedeemItem }: ItemFoundProps) =
             <button className="redeem-item" onClick={onRedeemItem}>
                 Resgatar Item
             </button>
-            <span>by <b>Capitel</b></span>
+            <ByCapitel theme="light" />
         </div>
     </Container>);
 };

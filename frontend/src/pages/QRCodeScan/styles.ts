@@ -45,10 +45,6 @@ export const QRCodeScanConteiner = styled.div`
                 width: 200px;
             }
         }
-        span.by-capitel{
-            font-family: ${({ theme }) => theme.fontFamily.default};
-            color: ${({ theme }) => theme.colors.green};
-        }
     }
     button.logout{
         background-color: ${({ theme }) => theme.colors.red};

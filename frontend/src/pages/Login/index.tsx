@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { LoginContainer } from "./styles";
 import { useAuth } from "contexts/auth.context";
+import { ByCapitel } from "components/ByCapitel/ByCapitel";
 
 export const Login = () => {
     const [username, setUsername] = useState("");
@@ -69,7 +70,7 @@ export const Login = () => {
                             <img src="imgs/spinner.webp" />)}
                     </button>
                 </form>
-                <span className="by-capitel">by <b>Capitel</b></span>
+                <ByCapitel theme="dark" />
             </div>
         </LoginContainer>
     );

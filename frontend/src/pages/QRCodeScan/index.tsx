@@ -176,7 +176,6 @@ export const QRCodeScan = () =>
                         </button>
                     </div>
                 )}
-                <span className="by-capitel">by <b>Capitel</b></span>
             </div>
 
             <button className="logout" onClick={() => {
