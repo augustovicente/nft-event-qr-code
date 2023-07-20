@@ -1,6 +1,6 @@
 import { useAuth } from 'contexts/auth.context';
 import { lazy, Suspense } from 'react';
-import { Outlet, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { NotFound } from '../pages/NotFound';
 import { LoadingPage } from 'pages/LoadingPage';
 
@@ -11,8 +11,6 @@ const NFT = lazy(() => import('pages/NFT').then((module) => ({ default: module.N
 export const Router = () => {
     const { user } = useAuth();
 
-    console.log(user);
-    
     if (!user) {
         return (
             <Suspense fallback={<LoadingPage />}>
