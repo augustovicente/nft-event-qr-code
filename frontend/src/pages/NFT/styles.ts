@@ -116,7 +116,11 @@ export const NFTContainer = styled.div`
                 background-color: ${({theme}) => theme.colors.red};
                 color: ${({theme}) => theme.colors.white};
                 font-family: ${({theme}) => theme.fontFamily.default};
-                font-size: ${({theme}) => theme.fontSizes.heading3};
+                font-size: ${({theme}) => theme.fontSizes.heading2};
+                &.collected{
+                    background-color: ${({theme}) => theme.colors.green};
+                    color: ${({theme}) => theme.colors.pink};
+                }
             }
         }
     }

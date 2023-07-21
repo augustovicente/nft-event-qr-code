@@ -11,6 +11,7 @@ const LoadingContainer = styled.div`
     align-items: center;
     justify-content: center;
     height: 100%;
+    padding: 5px;
     img{
         height: 50px;
         width: 50px;
@@ -20,7 +21,7 @@ const LoadingContainer = styled.div`
         }
     }
     span{
-        font-size: 16px;
+        font-size: 20px;
         font-weight: bold;
         margin-top: 10px;
         text-align: center;
@@ -35,9 +36,9 @@ const LoadingContainer = styled.div`
 
 export const FeedbackModal = ({ text, type }:FeedbackModalProps) => {
     return (<LoadingContainer>
-        {type === 'success' && <img src="imgs/success.gif" className="success" alt="Success HackTown" />}
-        {type === 'error' && <img src="imgs/error.png" alt="Error HackTown" />}
-        {type === 'loading' && <img src="imgs/loading.gif" alt="Loading HackTown" />}
+        {type === 'success' && <img src="/imgs/success.gif" className="success" alt="Success HackTown" />}
+        {type === 'error' && <img src="/imgs/error.png" alt="Error HackTown" />}
+        {type === 'loading' && <img src="/imgs/loading.gif" alt="Loading HackTown" />}
         <span className={`read-wallet ${type}`}>
             {text}
         </span>

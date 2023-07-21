@@ -8,7 +8,21 @@ class NFTController
 {
     async colect_nft(req: Request, res: Response, next: NextFunction)
     {
-
+        const hasItem = true;
+        const isNotCollected = true;
+        
+        if (hasItem && isNotCollected)
+        {
+            res.status(StatusCodes.OK).json({ success: true });
+        }
+        else if (!hasItem)
+        {
+            res.status(StatusCodes.OK).json({ error: 'item-sold-out' });
+        }
+        else if (!isNotCollected)
+        {
+            res.status(StatusCodes.OK).json({ error: 'item-already-collected' });
+        }
     }
     async validate_wallet(req: Request, res: Response, next: NextFunction)
     {

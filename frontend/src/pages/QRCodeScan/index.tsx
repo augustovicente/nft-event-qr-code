@@ -3,7 +3,7 @@ import { QRCodeScanConteiner } from "./styles"
 import { QrReader } from 'react-qr-reader';
 import Modal from 'react-modal';
 import { api } from "services/api";
-import { FeedbackModal } from "./components/FeedbackModal";
+import { FeedbackModal } from "../../components/FeedbackModal/FeedbackModal";
 import { ItemFound } from "./components/ItemFound";
 import { useAuth } from "contexts/auth.context";
 
@@ -118,7 +118,7 @@ export const QRCodeScan = () =>
             console.error(error);
             setErrorModal({
                 isOpen: true,
-                text: 'Erro na requisição',
+                text: 'Erro na requisição de resgate',
             });
         })
         .finally(() => {

@@ -1,9 +1,86 @@
 import { ByCapitel } from "components/ByCapitel/ByCapitel";
 import { NFTContainer } from "./styles";
 import { useState } from "react";
+import { api } from "services/api";
+import Modal from 'react-modal';
+import { FeedbackModal } from "components/FeedbackModal/FeedbackModal";
+
+type ModalProps = {
+    isOpen: boolean;
+    text: string;
+}
 
 export const NFT = () => {
-    const [nft, setNft] = useState<any>({})
+    const [successModal, setSuccessModal] = useState<ModalProps>({
+        isOpen: false,
+        text: '',
+    });
+
+    const [loadingModal, setLoadingModal] = useState<ModalProps>({
+        isOpen: false,
+        text: '',
+    });
+
+    const [errorModal, setErrorModal] = useState<ModalProps>({
+        isOpen: false,
+        text: '',
+    });
+
+    const [nft, setNft] = useState<any>({});
+    const [isCollected, setIsCollected] = useState<boolean>(false);
+    const [wallet, setWallet] = useState<string>('');
+
+    const handleCollect = () => {
+        if (isCollected) return;
+
+        setLoadingModal({
+            isOpen: true,
+            text: 'Enviando Colecionável',
+        });
+        api.post('/colect-nft', { wallet: wallet, nft_id: nft.id }).then((response) => {                
+            if (response.data.error)
+            {
+                switch (response.data.error)
+                {
+                    case 'item-sold-out':
+                        setErrorModal({
+                            isOpen: true,
+                            text: 'Colecionável Esgotado!',
+                        });
+                        break;
+                    case 'item-already-collected':
+                        setErrorModal({
+                            isOpen: true,
+                            text: 'Colecionável já coletado!',
+                        });
+                        break;
+
+                }
+            }
+            else if (response.data.success)
+            {
+                setSuccessModal({
+                    isOpen: true,
+                    text: 'Colecionável enviado com sucesso!',
+                });
+                setIsCollected(true);
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+            setErrorModal({
+                isOpen: true,
+                text: 'Erro na requisição',
+            });
+        })
+        .finally(() => {
+            setLoadingModal({
+                isOpen: false,
+                text: '',
+            });
+        });
+    };
+
     return (
         <NFTContainer>
             <img
@@ -23,9 +100,9 @@ export const NFT = () => {
                         src="https://solanart.io/_next/image?url=https%3A%2F%2Fapi-v2.solanart.io%2Fcdn%2F500%2Fhttps%3A%2F%2Fwww.arweave.net%2FicA7vfsZ9Uhw70qbpkZ2vyrQTyuePW67x-xHOMsWF78%3Fext%3Dpng&w=3840&q=75"
                         alt="NFT Image"
                     />
-                    <span className="amount">
+                    {!isCollected && (<span className="amount">
                         01/06
-                    </span>
+                    </span>)}
                 </div>
                 <div className="body">
                     <div className="title-container">
@@ -46,10 +123,50 @@ export const NFT = () => {
                     </div>
                 </div>
                 <div className="footer">
-                    <button className="collect">Coletar</button>
+                    <button
+                        onClick={handleCollect}
+                        className={'collect ' + (isCollected ? 'collected' : '')}
+                        >
+                        {isCollected ? 'Coletado' : 'Coletar'}
+                    </button>
                     <ByCapitel theme="light"/>
                 </div>
             </div>
+
+            <Modal
+                isOpen={loadingModal.isOpen}
+                className={'scan-modal'}
+            >
+                <FeedbackModal text={loadingModal.text} type="loading" />
+            </Modal>
+
+            <Modal
+                shouldCloseOnOverlayClick={true}
+                onRequestClose={() => {
+                    setErrorModal({
+                        isOpen: false,
+                        text: '',
+                    });
+                }}
+                isOpen={errorModal.isOpen}
+                className={'scan-modal'}
+            >
+                <FeedbackModal text={errorModal.text} type="error" />
+            </Modal>
+
+            <Modal
+                shouldCloseOnOverlayClick={true}
+                onRequestClose={() => {
+                    setSuccessModal({
+                        isOpen: false,
+                        text: '',
+                    });
+                }}
+                isOpen={successModal.isOpen}
+                className={'scan-modal'}
+            >
+                <FeedbackModal text={successModal.text} type="success" />
+            </Modal>
         </NFTContainer>
     );
 };
