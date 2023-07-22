@@ -111,6 +111,10 @@ export const NFT = () => {
 
         axios.get(`/nfts/metadata.json`).then(({ data }) => {
             const nft_metadata = data[nft_id];
+            if(!nft_metadata)
+            {
+                window.location.href = '/404';
+            }
             setNft(nft_metadata);
         });
 

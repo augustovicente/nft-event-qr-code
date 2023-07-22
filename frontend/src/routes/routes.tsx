@@ -17,6 +17,7 @@ export const Router = () => {
                 <Routes>
                     <Route path="login" element={<Login />} />
                     <Route path="/nft/:nft_id" element={<NFT />} />
+                    <Route path="404" element={<NotFound />} />
 
                     <Route path="*" element={<NotFound />} />
                 </Routes>
