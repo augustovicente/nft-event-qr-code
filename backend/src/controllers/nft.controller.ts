@@ -72,7 +72,7 @@ class NFTController
             res.status(StatusCodes.OK).json({
                 success: true,
                 data: {
-                    item_id: '1',
+                    item_id: nftId,
                 }
             });
         }

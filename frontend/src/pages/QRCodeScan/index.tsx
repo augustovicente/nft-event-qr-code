@@ -79,7 +79,7 @@ export const QRCodeScan = () =>
                 {
                     setItemModal({
                         isOpen: true,
-                        itemUrl: response.data.data.item_url,
+                        itemUrl: `/imgs/nfts/${response.data.data.item_id}.png`,
                         itemId: response.data.data.item_id,
                     });
                 }

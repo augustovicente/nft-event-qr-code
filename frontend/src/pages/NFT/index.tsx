@@ -1,10 +1,12 @@
 import { ByCapitel } from "components/ByCapitel/ByCapitel";
 import { NFTContainer } from "./styles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { api } from "services/api";
 import Modal from 'react-modal';
 import { FeedbackModal } from "components/FeedbackModal/FeedbackModal";
 import { connect } from "services/web3";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 type ModalProps = {
     isOpen: boolean;
@@ -12,6 +14,8 @@ type ModalProps = {
 }
 
 export const NFT = () => {
+    const { nft_id } = useParams();
+
     const [successModal, setSuccessModal] = useState<ModalProps>({
         isOpen: false,
         text: '',
@@ -96,6 +100,15 @@ export const NFT = () => {
         });
     };
 
+    useEffect(() => {
+        if(!nft_id) return;
+
+        axios.get(`/nfts/metadata.json`).then(({ data }) => {
+            const nft_metadata = data[nft_id];
+            setNft(nft_metadata);
+        });
+    }, []);
+
     return (
         <NFTContainer>
             <img
@@ -112,7 +125,7 @@ export const NFT = () => {
                 <div className="header">
                     <img
                         className="nft-image"
-                        src="https://solanart.io/_next/image?url=https%3A%2F%2Fapi-v2.solanart.io%2Fcdn%2F500%2Fhttps%3A%2F%2Fwww.arweave.net%2FicA7vfsZ9Uhw70qbpkZ2vyrQTyuePW67x-xHOMsWF78%3Fext%3Dpng&w=3840&q=75"
+                        src={`/nfts/${nft.id}.png`}
                         alt="NFT Image"
                     />
                     {!isCollected && (<span className="amount">
@@ -121,19 +134,19 @@ export const NFT = () => {
                 </div>
                 <div className="body">
                     <div className="title-container">
-                        <span>{nft.id}1 - {nft.name} kandkansd</span>
+                        <span>{nft.id} - {nft.name}</span>
                     </div>
                     <div className="prize-container">
                         <i className="ph ph-sketch-logo"></i>
                         <span>
-                            <b>Prêmio: </b>{nft.prize}PREIMAO
+                            <b>Prêmio: </b>{nft.prize}
                         </span>
                     </div>
                     <div className="location-container">
                         <i className="ph ph-map-pin-line"></i>
                         <div className="place">
-                            <span><b>{nft.place_name}NOME KKK</b></span>
-                            <span><b>Localidade:</b> SALVE {nft.place_address}</span>
+                            <span><b>{nft.place_name}</b></span>
+                            <span><b>Localidade:</b>{nft.place_address}</span>
                         </div>
                     </div>
                 </div>
