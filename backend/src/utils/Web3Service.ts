@@ -40,6 +40,16 @@ async function validate_wallet(address: string, nft_id: number): Promise<validat
     return true;
 }
 
+type validate_collect_result = 'has-item' | 'already-collected' | true;
+
+async function validate_collect(address: string, nft_id: number): Promise<validate_collect_result> {
+    const hasCollected = await contract.methods.checkHasNFT(address, nft_id).call();
+    if (!hasCollected) return 'already-collected';
+    const availableCount = await contract.methods.checkAvailableNFT(nft_id).call();
+    if (+availableCount === 0) return 'has-item';
+    return true;
+}
+
 const redeem_nft = async (address: string, nft_id: number) =>
 {
     let gasPrice = await web3.eth.getGasPrice();
@@ -55,4 +65,5 @@ export {
     collect_nft,
     validate_wallet,
     redeem_nft,
+    validate_collect,
 }

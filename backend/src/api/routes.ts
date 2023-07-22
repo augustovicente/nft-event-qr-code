@@ -6,7 +6,7 @@ import authMiddleware from '../middlewares/auth';
 
 const main_router = Router();
 
-main_router.route('/colect-nft').post(nftController.colect_nft);
+main_router.route('/collect-nft').post(nftController.colect_nft);
 main_router.route('/login').post(loginController.login);
 // authenticated routes
 main_router.route('/validate-wallet').post(authMiddleware, rescue(nftController.validate_wallet));

@@ -52,7 +52,7 @@ export const NFT = () => {
             isOpen: true,
             text: 'Enviando Colecionável',
         });
-        api.post('/colect-nft', { wallet: wallet, nft_id: nft.id }).then((response) => {                
+        api.post('/collect-nft', { wallet: wallet, nft_id: nft.id }).then((response) => {                
             if (response.data.error)
             {
                 switch (response.data.error)

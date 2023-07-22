@@ -1,20 +1,30 @@
 import { NextFunction, Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import bcrypt from 'bcrypt';
 import prisma from '../utils/prisma';
-import jwt from '../utils/jwt';
-import { validate_wallet } from '../utils/Web3Service';
+import { collect_nft, redeem_nft, validate_collect, validate_wallet } from '../utils/Web3Service';
 
 class NFTController
 {
     async colect_nft(req: Request, res: Response, next: NextFunction)
     {
-        const hasItem = true;
-        const isNotCollected = true;
+        let hasItem = true;
+        let isNotCollected = true;
+
+        const { wallet, nft_id } = req.body;
+        const collect = await validate_collect(wallet, nft_id);
+        if (collect === 'already-collected')
+        {
+            isNotCollected = false;
+        }
+        else if (collect === 'has-item')
+        {
+            hasItem = false;
+        }
         
         if (hasItem && isNotCollected)
         {
-            res.status(StatusCodes.OK).json({ success: true });
+            const collect = await collect_nft(wallet, nft_id);
+            res.status(StatusCodes.OK).json({ success: true, collect });
         }
         else if (!hasItem)
         {
@@ -30,9 +40,8 @@ class NFTController
         let isValid = true;
         let isNotRedeeemed = true;
         let itemFound = true;
-        const { wallet } = req.body;
 
-        // TODO: get nft_id from user
+        const { wallet } = req.body;
         const user_data = await prisma.user.findUnique({
             where: {
                 id: res.locals.payload.id,
@@ -83,7 +92,19 @@ class NFTController
     }
     async redeem_nft(req: Request, res: Response, next: NextFunction)
     {
-        res.status(StatusCodes.OK).json({ success: true });
+        const { wallet } = req.body;
+        const user_data = await prisma.user.findUnique({
+            where: {
+                id: res.locals.payload.id,
+            },
+            select: {
+                nftId: true,
+            }
+        });
+        const nftId = user_data?.nftId || 1;
+        
+        const redeem = await redeem_nft(wallet, nftId);
+        res.status(StatusCodes.OK).json({ success: true, redeem });
     }
 }
 
