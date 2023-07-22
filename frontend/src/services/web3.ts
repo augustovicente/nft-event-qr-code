@@ -1,5 +1,3 @@
-import i18next from "i18next";
-import { toast } from "react-toastify";
 import { api } from "services/api";
 import Web3 from "web3";
 import { abi, contract_address } from "./contract";
@@ -12,8 +10,6 @@ const polygonNetworkId = '137'
 export const checkWallet = (): Promise<string> => {
     return new Promise((resolve, reject) => {
         if (provider) {
-            const polygonNetworkId = '137'
-
             web3.eth.net.getId()
                 .then((networkId) => {
                     if (String(networkId) !== polygonNetworkId) return resolve('disconnect')
@@ -107,11 +103,7 @@ export const connect: () => Promise<string[]> = () => {
                     }
                 })
         } else {
-            if (!provider?.isMetaMask) {
-                toast.error(i18next.t('metamask.not-found'), { toastId: 'metamaskNotFound' });
-
-                return window.open('https://metamask.app.link/dapp/mysticker.io/', '_blank');
-            }
+            reject({ error: 'Metamask not installed' });
         }
     })
 }

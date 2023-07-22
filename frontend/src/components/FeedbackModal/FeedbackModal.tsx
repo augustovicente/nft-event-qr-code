@@ -3,6 +3,7 @@ import { styled } from "styled-components";
 type FeedbackModalProps = {
     text: string;
     type?: 'success' | 'error' | 'loading';
+    custom_img?: string;
 }
 
 const LoadingContainer = styled.div`
@@ -34,11 +35,12 @@ const LoadingContainer = styled.div`
     }
 `;
 
-export const FeedbackModal = ({ text, type }:FeedbackModalProps) => {
+export const FeedbackModal = ({ text, type, custom_img }:FeedbackModalProps) => {
     return (<LoadingContainer>
-        {type === 'success' && <img src="/imgs/success.gif" className="success" alt="Success HackTown" />}
-        {type === 'error' && <img src="/imgs/error.png" alt="Error HackTown" />}
-        {type === 'loading' && <img src="/imgs/loading.gif" alt="Loading HackTown" />}
+        {custom_img && <img src={custom_img} className="custom" alt="Success HackTown" />}
+        {!custom_img && type === 'success' && <img src="/imgs/success.gif" className="success" alt="Success HackTown" />}
+        {!custom_img && type === 'error' && <img src="/imgs/error.png" alt="Error HackTown" />}
+        {!custom_img && type === 'loading' && <img src="/imgs/loading.gif" alt="Loading HackTown" />}
         <span className={`read-wallet ${type}`}>
             {text}
         </span>

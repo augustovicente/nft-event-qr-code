@@ -9,6 +9,16 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;700&display=swap" rel="stylesheet">
         <script src="https://unpkg.com/@phosphor-icons/web"></script>
+        <script>window.global = window;</script>
+        <script type="module">
+            import process from "process";
+            import { Buffer } from "buffer";
+            import EventEmitter from "events";
+            
+            window.Buffer = Buffer;
+            window.process = process;
+            window.EventEmitter = EventEmitter;
+        </script>
         <title>HackTown</title>
     </head>
 

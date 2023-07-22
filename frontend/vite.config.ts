@@ -22,5 +22,13 @@ export default defineConfig({
         minifyIdentifiers: true,
         minifySyntax: true,
         minifyWhitespace: true,
-    }
+    },
+    resolve: {
+        alias: {
+          process: 'process/browser',
+          stream: 'stream-browserify',
+          zlib: 'browserify-zlib',
+          util: 'util'
+        }
+    },
 })

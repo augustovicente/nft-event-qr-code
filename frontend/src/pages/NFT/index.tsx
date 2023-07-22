@@ -4,6 +4,7 @@ import { useState } from "react";
 import { api } from "services/api";
 import Modal from 'react-modal';
 import { FeedbackModal } from "components/FeedbackModal/FeedbackModal";
+import { connect } from "services/web3";
 
 type ModalProps = {
     isOpen: boolean;
@@ -26,12 +27,26 @@ export const NFT = () => {
         text: '',
     });
 
+    const [metamaskModal, setMetamaskModal] = useState<boolean>(false);
     const [nft, setNft] = useState<any>({});
     const [isCollected, setIsCollected] = useState<boolean>(false);
     const [wallet, setWallet] = useState<string>('');
 
-    const handleCollect = () => {
+    const handleCollect = async () => {
         if (isCollected) return;
+        if (!wallet) {
+            let wallets;
+            try {
+                wallets = await connect()
+            } catch (error) {
+                console.error(error);
+                setMetamaskModal(true);
+                return;
+            }
+
+            if (!wallets) return;
+            setWallet(wallets[0]);
+        }
 
         setLoadingModal({
             isOpen: true,
@@ -166,6 +181,22 @@ export const NFT = () => {
                 className={'scan-modal'}
             >
                 <FeedbackModal text={successModal.text} type="success" />
+            </Modal>
+
+            <Modal
+                shouldCloseOnOverlayClick={true}
+                onRequestClose={() => {
+                    setMetamaskModal(false);
+                    window.open('https://metamask.app.link/dapp/mysticker.io/', '_blank');
+                }}
+                isOpen={metamaskModal}
+                className={'scan-modal'}
+            >
+                <FeedbackModal
+                    custom_img="/imgs/metamask.png"
+                    text={'Instale o MetaMask para continuar'}
+                    type="success"
+                />
             </Modal>
         </NFTContainer>
     );

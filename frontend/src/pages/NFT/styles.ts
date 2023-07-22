@@ -32,6 +32,8 @@ export const NFTContainer = styled.div`
             img.nft-image{
                 height: 85vw;
                 width: 85vw;
+                max-width: 400px;
+                max-height: 400px;
                 border-radius: 10px;
             }
             span.amount{
