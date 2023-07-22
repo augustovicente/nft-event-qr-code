@@ -14,6 +14,7 @@ type ModalProps = {
 }
 
 export const NFT = () => {
+    Modal.setAppElement('#root');
     const { nft_id } = useParams();
 
     const [successModal, setSuccessModal] = useState<ModalProps>({
@@ -38,25 +39,19 @@ export const NFT = () => {
 
     const handleCollect = async () => {
         if (isCollected) return;
-        if (!wallet) {
-            let wallets;
-            try {
-                wallets = await connect()
-            } catch (error) {
-                console.error(error);
-                setMetamaskModal(true);
-                return;
-            }
 
+        let _wallet = wallet;
+        if (!wallet) {
+            const wallets = await connect();
             if (!wallets) return;
-            setWallet(wallets[0]);
+            _wallet = wallets[0];
         }
 
         setLoadingModal({
             isOpen: true,
             text: 'Enviando Colecionável',
         });
-        api.post('/collect-nft', { wallet: wallet, nft_id: nft.id }).then((response) => {                
+        api.post('/collect-nft', { wallet: _wallet, nft_id: nft.id }).then((response) => {                
             if (response.data.error)
             {
                 switch (response.data.error)
@@ -102,6 +97,17 @@ export const NFT = () => {
 
     useEffect(() => {
         if(!nft_id) return;
+
+        if (!wallet) {
+            connect().then((wallets) => {
+                if (!wallets) return;
+                setWallet(wallets[0]);
+            }).catch((error) => {
+                console.error(error);
+                setMetamaskModal(true);
+                return;
+            });
+        }
 
         axios.get(`/nfts/metadata.json`).then(({ data }) => {
             const nft_metadata = data[nft_id];

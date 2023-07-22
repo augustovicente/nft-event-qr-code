@@ -23,8 +23,8 @@ class NFTController
         
         if (hasItem && isNotCollected)
         {
-            const collect = await collect_nft(wallet, nft_id);
-            res.status(StatusCodes.OK).json({ success: true, collect });
+            await collect_nft(wallet, nft_id);
+            res.status(StatusCodes.OK).json({ success: true });
         }
         else if (!hasItem)
         {
