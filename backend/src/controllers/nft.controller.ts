@@ -103,8 +103,8 @@ class NFTController
         });
         const nftId = user_data?.nftId || 1;
         
-        const redeem = await redeem_nft(wallet, nftId);
-        res.status(StatusCodes.OK).json({ success: true, redeem });
+        await redeem_nft(wallet, nftId);
+        res.status(StatusCodes.OK).json({ success: true });
     }
 }
 

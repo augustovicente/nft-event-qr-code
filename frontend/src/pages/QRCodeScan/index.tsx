@@ -79,7 +79,7 @@ export const QRCodeScan = () =>
                 {
                     setItemModal({
                         isOpen: true,
-                        itemUrl: `/imgs/nfts/${response.data.data.item_id}.png`,
+                        itemUrl: `/nfts/${response.data.data.item_id}.png`,
                         itemId: response.data.data.item_id,
                     });
                 }
@@ -145,9 +145,13 @@ export const QRCodeScan = () =>
                             {
                                 console.info(error);
                             }
-                            else if (result && result?.text && result?.text !== data)
+                            else if (result)
                             {
-                                setData(result?.text);
+                                const address = result?.text.split(':')[1];
+                                if(address && address !== data)
+                                {
+                                    setData(address);
+                                }
                             }
                         }}
                         scanDelay={1000}

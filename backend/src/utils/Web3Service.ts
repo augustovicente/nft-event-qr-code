@@ -27,15 +27,11 @@ const collect_nft = async (address: string, nft_id: number) =>
 {
     const { web3, contract, provider } = instance();
     let gasPrice = await web3.eth.getGasPrice();
-    try {
-        return await contract.methods.collectNFT(address, nft_id)
-            .send({
-                from: provider.getAddress(wallet_index),
-                gasPrice: gasPrice,
-            });
-    } catch (error) {
-        console.log(error);
-    }
+    return await contract.methods.collectNFT(address, nft_id)
+        .send({
+            from: provider.getAddress(wallet_index),
+            gasPrice: gasPrice,
+        });
 }
 
 type validate_wallet_result = 'not-found' | 'already-redeemed' | true;
@@ -44,7 +40,7 @@ async function validate_wallet(address: string, nft_id: number): Promise<validat
     const { contract } = instance();
     const hasNFT = await contract.methods.checkHasNFT(address, nft_id).call();
     if (!hasNFT) return 'not-found';
-    const isRedeemed = await contract.methods.checkIsRedeemed(address, nft_id).call();
+    const isRedeemed = await contract.methods.checkUsedNFT(address, nft_id).call();
     if (isRedeemed) return 'already-redeemed';
     return true;
 }
