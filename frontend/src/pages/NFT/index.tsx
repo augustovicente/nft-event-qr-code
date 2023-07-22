@@ -113,6 +113,8 @@ export const NFT = () => {
             const nft_metadata = data[nft_id];
             setNft(nft_metadata);
         });
+
+        getNFTAmounts();
     }, []);
 
     const checkHasNFT = async () => {
@@ -121,6 +123,13 @@ export const NFT = () => {
             const hasNFT = await contract.methods.checkHasNFT(wallet, nft_id).call()
             setIsCollected(!!hasNFT);
         }
+    };
+
+    const getNFTAmounts = async () => {
+        const contract = await get_contract();
+        const available = Number(await contract.methods.checkAvailableNFT(nft_id).call());
+        const total = Number(await contract.methods.checkTotalNFTs(nft_id).call());
+        setNft((_nft: any) => ({ ..._nft, available, total }));
     };
 
     useEffect(() => {
@@ -146,8 +155,8 @@ export const NFT = () => {
                         src={`/nfts/${nft.id}.png`}
                         alt="NFT Image"
                     />
-                    {!isCollected && (<span className="amount">
-                        01/06
+                    {!isCollected && nft.available && nft.total && (<span className="amount">
+                        {nft.available}/{nft.total}
                     </span>)}
                 </div>
                 <div className="body">
