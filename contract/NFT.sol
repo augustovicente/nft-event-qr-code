@@ -89,6 +89,23 @@ contract Contract is ERC1155, Ownable
         return count;
     }
 
+    // Verificar NFTs Totais
+    function checkTotalNFTs(uint256 _id) public view returns (uint256)
+    {
+        // find the id index on nft_ids
+        uint256 index = 0;
+        for (uint256 i = 0; i < nft_ids.length; i++)
+        {
+            if (nft_ids[i] == _id)
+            {
+                index = i;
+                break;
+            }
+        }
+
+        return nft_amounts[index];
+    }
+
     // Coletar NFT para usuário (transferir pre mintado)
     function collectNFT(address _user, uint256 _id) public onlyOwner
     {

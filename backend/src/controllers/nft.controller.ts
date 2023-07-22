@@ -3,6 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import bcrypt from 'bcrypt';
 import prisma from '../utils/prisma';
 import jwt from '../utils/jwt';
+import { validate_wallet } from '../utils/Web3Service';
 
 class NFTController
 {
@@ -26,16 +27,42 @@ class NFTController
     }
     async validate_wallet(req: Request, res: Response, next: NextFunction)
     {
-        const isValid = true;
-        const isNotRedeeemed = true;
-        const itemFound = true;
+        let isValid = true;
+        let isNotRedeeemed = true;
+        let itemFound = true;
+        const { wallet } = req.body;
+
+        // TODO: get nft_id from user
+        const user_data = await prisma.user.findUnique({
+            where: {
+                id: res.locals.payload.id,
+            },
+            select: {
+                nftId: true,
+            }
+        });
+        const nftId = user_data?.nftId || 1;
         
+        // check if wallet is valid
+        if(wallet.length < 42 || wallet.length > 42)
+        {
+            isValid = false;
+        }
+        const validate = await validate_wallet(wallet, nftId);
+        if (validate === 'not-found')
+        {
+            itemFound = false;
+        }
+        else if (validate === 'already-redeemed')
+        {
+            isNotRedeeemed = false;
+        }
+
         if (isValid && isNotRedeeemed && itemFound)
         {
             res.status(StatusCodes.OK).json({
                 success: true,
                 data: {
-                    item_url: 'https://solanart.io/_next/image?url=https%3A%2F%2Fapi-v2.solanart.io%2Fcdn%2F500%2Fhttps%3A%2F%2Fwww.arweave.net%2FicA7vfsZ9Uhw70qbpkZ2vyrQTyuePW67x-xHOMsWF78%3Fext%3Dpng&w=3840&q=75',
                     item_id: '1',
                 }
             });
