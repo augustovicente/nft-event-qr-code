@@ -108,7 +108,7 @@ export const connect: () => Promise<string[]> = () => {
     })
 }
 
-export const get_contract = async () => {
+export const get_contract = async (): Promise<any> => {
     const nftContract = new web3.eth.Contract(abi as any, contract_address);
     return nftContract;
 }

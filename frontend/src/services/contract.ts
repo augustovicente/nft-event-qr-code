@@ -1,7 +1,7 @@
 // contrato produção
-export const contract_address = '0x5E27989328B387b010B43ef0095C5a6e765BE5d0';
+// export const contract_address = '0x5E27989328B387b010B43ef0095C5a6e765BE5d0';
 // contrato test polygon
-// export const contract_address = '0x77c551dC1159460F5028a4b132a379F5fCa9d3F5';
+export const contract_address = '0xEe73Fe6fA075e73246B7709f49a574B95D7B6214';
 export const abi = [
 	{
 		"inputs": [],
@@ -257,25 +257,6 @@ export const abi = [
 				"internalType": "bool",
 				"name": "",
 				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_id",
-				"type": "uint256"
-			}
-		],
-		"name": "checkTotalNFTs",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { api } from "services/api";
 import Modal from 'react-modal';
 import { FeedbackModal } from "components/FeedbackModal/FeedbackModal";
-import { connect } from "services/web3";
+import { connect, get_contract } from "services/web3";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -114,6 +114,18 @@ export const NFT = () => {
             setNft(nft_metadata);
         });
     }, []);
+
+    const checkHasNFT = async () => {
+        if (wallet) {
+            const contract = await get_contract();
+            const hasNFT = await contract.methods.checkHasNFT(wallet, nft_id).call()
+            setIsCollected(!!hasNFT);
+        }
+    };
+
+    useEffect(() => {
+        checkHasNFT();
+    }, [wallet]);
 
     return (
         <NFTContainer>

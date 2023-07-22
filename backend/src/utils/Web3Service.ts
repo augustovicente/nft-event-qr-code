@@ -1,7 +1,7 @@
 import HDWalletProvider from '@truffle/hdwallet-provider';
 const NonceTrackerSubprovider = require('web3-provider-engine/subproviders/nonce-tracker');
 import Web3 from 'web3';
-import { abi } from './contract';
+import { abi, contract_address } from './contract';
 
 // endpoints
 const endpoint = "https://polygon-rpc.com/";
@@ -9,7 +9,6 @@ const endpoint = "https://polygon-rpc.com/";
 
 const WALLET_WORDS = process.env.WALLET_WORDS || '';
 const wallet_index = Number(process.env.WALLET_INDEX) || 0;
-const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS || '';
 
 // web3 instance
 const instance = () => {
@@ -19,7 +18,7 @@ const instance = () => {
     provider.engine['_providers'].unshift(nonceTracker)
     nonceTracker.setEngine(provider.engine)
     const web3 = new Web3(provider as any);
-    const contract: any = new web3.eth.Contract(abi as any, CONTRACT_ADDRESS);
+    const contract: any = new web3.eth.Contract(abi as any, contract_address);
     const no_wallet_web3 = new Web3(endpoint);
     return { web3, contract, no_wallet_web3, provider };
 }
