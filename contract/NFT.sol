@@ -35,6 +35,15 @@ contract Contract is ERC1155, Ownable
         }
     }
 
+    function setAmounts(uint256[] memory _amounts) public onlyOwner
+    {
+        require(_amounts.length == nft_ids.length, "Amounts length must be equal to nft_ids length");
+        for (uint256 i = 0; i < nft_ids.length; i++)
+        {
+            nft_amounts[i] = _amounts[i];
+        }
+    }
+
     // return Initial baseURI
     function _baseURI() internal view virtual returns (string memory) {
         return baseURI;
