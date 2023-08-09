@@ -8,6 +8,7 @@ export const NFTContainer = styled.div`
     align-items: center;
     justify-content: center;
     gap: 20px;
+    background-color: ${({theme}) => theme.colors.background2};
     img.background{
         height: 100vh;
         width: 100vw;
@@ -29,7 +30,7 @@ export const NFTContainer = styled.div`
             display: flex;
             flex-direction: column;
             position: relative;
-            img.nft-image{
+            video.nft-image{
                 height: 85vw;
                 width: 85vw;
                 max-width: 400px;

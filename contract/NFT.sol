@@ -8,9 +8,9 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 contract Contract is ERC1155, Ownable
 {
     // 7 nfts
-    uint[] private nft_ids = [1, 2, 3, 4, 5, 6, 7];
+    uint[] private nft_ids = [1, 2, 3, 4, 5, 6, 7, 8];
     // amount of each nft to mint
-    uint[] private nft_amounts = [1, 1, 1, 1, 1, 1, 1];
+    uint[] private nft_amounts = [1, 1, 1, 1, 1, 1, 1, 1];
     // amount of each nft that was transfered
     mapping(uint256 => uint256) private amounts_transfered;
 
@@ -21,8 +21,8 @@ contract Contract is ERC1155, Ownable
 
     mapping(address => NFTUsage[]) UsagePerUser;
 
-    address public the_owner = 0x619E5b16bCc8b73aBAE24A57968FFFe9Ad21f374;
-    string public baseURI = "ipfs://bafybeie7yqpchw4zopjn7khknnhvyfc454vk2w5zomgddite52kl3rvqtm/";
+    address public the_owner = 0x53FdA1A0b66E8A452d4088E635a0684ebf9163c2;
+    string public baseURI = "ipfs://bafybeieolypoxej7ecg3ti6nwjeck6u76yimejcklwwbe74xcmh5hqvvoq/";
     string public baseExtension = ".json";
 
     constructor() ERC1155("")

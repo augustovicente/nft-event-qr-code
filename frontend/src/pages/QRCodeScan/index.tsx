@@ -135,7 +135,6 @@ export const QRCodeScan = () =>
 
     return (
         <QRCodeScanConteiner>
-            <img className="background" src="imgs/background.png" alt="Background QR Scanner" />
             <div className="qr-content">
                 <img className="logo" src="imgs/hacktown.png" alt="Hacktown Logo" />
                 {isReading ? (

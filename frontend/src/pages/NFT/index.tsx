@@ -143,21 +143,17 @@ export const NFT = () => {
     return (
         <NFTContainer>
             <img
-                alt="Background Redeem Page"
-                src="/imgs/redeem-background.png"
-                className="background"
-            />
-            <img
                 src="/imgs/hacktown.png" 
                 alt="Hacktown Logo"
                 className="hacktown"
             />
             <div className="nft-content">
                 <div className="header">
-                    <img
+                    <video
                         className="nft-image"
-                        src={`/nfts/${nft.id}.png`}
-                        alt="NFT Image"
+                        src={`/nfts/${nft.id}.mp4`}
+                        autoPlay
+                        muted
                     />
                     {!isCollected && nft.available && nft.total && (<span className="amount">
                         {nft.available}/{nft.total}

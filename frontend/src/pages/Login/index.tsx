@@ -28,7 +28,6 @@ export const Login = () => {
     };
     return (
         <LoginContainer>
-            <img className="background" src="imgs/background.png" alt="Background Login" />
             <div className="login-content">
                 <img className="logo" src="imgs/hacktown.png" alt="Hacktown Logo" />
                 <form onSubmit={handleSubmit}>

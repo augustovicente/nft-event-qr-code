@@ -12,6 +12,8 @@ export const theme = {
         darkGreen: "#3ED1C8",
         white: "#FFFFFF",
         black: "#000000",
+        background: "rgba(92, 63, 169, 1)",
+        background2: "rgba(248, 16, 95, 1)",
     },
     fontSizes: {
         heading1: "31px; font-weight: 700;",
