@@ -11,7 +11,16 @@ class NFTController
         let isNotCollected = true;
 
         const { wallet, nft_id } = req.body;
-        const collect = await validate_collect(wallet, nft_id);
+        let collect;
+        try
+        {
+            collect = await validate_collect(wallet, nft_id);
+        }
+        catch (error)
+        {
+            res.status(StatusCodes.OK).json({ error: 'validate-failed' });
+        }
+
         if (collect === 'already-collected')
         {
             isNotCollected = false;
@@ -23,7 +32,14 @@ class NFTController
         
         if (hasItem && isNotCollected)
         {
-            await collect_nft(wallet, nft_id);
+            try
+            {
+                await collect_nft(wallet, nft_id);
+            }
+            catch (error)
+            {
+                res.status(StatusCodes.OK).json({ error: 'collect-failed' });    
+            }
             res.status(StatusCodes.OK).json({ success: true });
         }
         else if (!hasItem)
@@ -42,14 +58,23 @@ class NFTController
         let itemFound = true;
 
         const { wallet } = req.body;
-        const user_data = await prisma.user.findUnique({
-            where: {
-                id: res.locals.payload.id,
-            },
-            select: {
-                nftId: true,
-            }
-        });
+        let user_data;
+        try
+        {
+            user_data = await prisma.user.findUnique({
+                where: {
+                    id: res.locals.payload.id,
+                },
+                select: {
+                    nftId: true,
+                }
+            });
+        }
+        catch (error)
+        {
+            res.status(StatusCodes.OK).json({ error: 'user-not-found' });
+        }
+
         const nftId = user_data?.nftId || 1;
         
         // check if wallet is valid
@@ -57,7 +82,16 @@ class NFTController
         {
             isValid = false;
         }
-        const validate = await validate_wallet(wallet, nftId);
+        let validate;
+        try
+        {
+            validate = await validate_wallet(wallet, nftId);
+        }
+        catch (error)
+        {
+            res.status(StatusCodes.OK).json({ error: 'validate-failed' });
+        }
+
         if (validate === 'not-found')
         {
             itemFound = false;
@@ -88,22 +122,37 @@ class NFTController
         {
             res.status(StatusCodes.OK).json({ error: 'item-not-found-in-wallet' });
         }
-
     }
     async redeem_nft(req: Request, res: Response, next: NextFunction)
     {
         const { wallet } = req.body;
-        const user_data = await prisma.user.findUnique({
-            where: {
-                id: res.locals.payload.id,
-            },
-            select: {
-                nftId: true,
-            }
-        });
+        let user_data;
+        try
+        {
+            user_data = await prisma.user.findUnique({
+                where: {
+                    id: res.locals.payload.id,
+                },
+                select: {
+                    nftId: true,
+                }
+            });
+        }
+        catch (error)
+        {
+            res.status(StatusCodes.OK).json({ error: 'user-not-found' });
+        }
+
         const nftId = user_data?.nftId || 1;
         
-        await redeem_nft(wallet, nftId);
+        try
+        {
+            await redeem_nft(wallet, nftId);
+        }
+        catch (error)
+        {
+            res.status(StatusCodes.OK).json({ error: 'redeem-failed' });
+        }
         res.status(StatusCodes.OK).json({ success: true });
     }
 }
