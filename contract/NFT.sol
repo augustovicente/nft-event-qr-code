@@ -160,4 +160,23 @@ contract Contract is ERC1155, Ownable
             }
         }
     }
+
+    // burn NFT from user
+    function burnNFT(address _user, uint256 _id) public onlyOwner
+    {
+        require(checkHasNFT(_user, _id) == true, "User does not have this NFT");
+
+        // burn nft
+        _burn(_user, _id, 1);
+
+        // update UsagePerUser
+        for (uint256 i = 0; i < UsagePerUser[_user].length; i++)
+        {
+            if (UsagePerUser[_user][i].id == _id)
+            {
+                delete UsagePerUser[_user][i];
+                break;
+            }
+        }
+    }
 }
