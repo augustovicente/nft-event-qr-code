@@ -153,6 +153,7 @@ export const NFT = () => {
                         className="nft-image"
                         src={`/nfts/${nft.id}.mp4`}
                         autoPlay
+                        loop
                         muted
                     />
                     {!isCollected && nft.available && nft.total && (<span className="amount">
@@ -163,17 +164,18 @@ export const NFT = () => {
                     <div className="title-container">
                         <span>{nft.id} - {nft.name}</span>
                     </div>
-                    <div className="prize-container">
+                    {/* <div className="prize-container">
                         <i className="ph ph-sketch-logo"></i>
                         <span>
                             <b>Prêmio: </b>{nft.prize}
                         </span>
-                    </div>
+                    </div> */}
                     <div className="location-container">
                         <i className="ph ph-map-pin-line"></i>
                         <div className="place">
-                            <span><b>{nft.place_name}</b></span>
-                            <span><b>Localidade:</b>{nft.place_address}</span>
+                            {/* <span><b>{nft.place_name}</b></span>
+                            <span><b>Localidade:</b>{nft.place_address}</span> */}
+                            <span>{nft.description}</span>
                         </div>
                     </div>
                 </div>

@@ -10,7 +10,7 @@ contract Contract is ERC1155, Ownable
     // 7 nfts
     uint[] private nft_ids = [1, 2, 3, 4, 5, 6, 7, 8];
     // amount of each nft to mint
-    uint[] private nft_amounts = [1, 1, 1, 1, 1, 1, 1, 1];
+    uint[] private nft_amounts = [600, 500, 400, 300, 200, 150, 125, 3000];
     // amount of each nft that was transfered
     mapping(uint256 => uint256) private amounts_transfered;
 
