@@ -1,7 +1,7 @@
 // contrato produção
 // export const contract_address = '0x5E27989328B387b010B43ef0095C5a6e765BE5d0';
 // contrato test polygon
-export const contract_address = '0xEe73Fe6fA075e73246B7709f49a574B95D7B6214';
+export const contract_address = '0x62d9aE4CfCef10DDBB6804C1DA45E7ca791AB11C';
 export const abi = [
 	{
 		"inputs": [],
@@ -32,6 +32,24 @@ export const abi = [
 		],
 		"name": "ApprovalForAll",
 		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_user",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			}
+		],
+		"name": "burnNFT",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"inputs": [
@@ -139,6 +157,19 @@ export const abi = [
 			}
 		],
 		"name": "safeTransferFrom",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "_amounts",
+				"type": "uint256[]"
+			}
+		],
+		"name": "setAmounts",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
