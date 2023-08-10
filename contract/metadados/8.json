@@ -1,6 +1,10 @@
 {
     "name": "Hacktown - 2023-3",
     "description": "CASA CONECTADA CLARO",
-    "animation_url": "ipfs://bafybeiarial6darfywfu6dui4cnj2ybvp7dkpe4mskmjpufau7eqcvfvke/8.jpg",
+    "animation_url": "ipfs://bafybeiarial6darfywfu6dui4cnj2ybvp7dkpe4mskmjpufau7eqcvfvke/8.mp4",
+    "attributes": [
+        { "trait_type": "Ano", "value": "2023" },
+        { "trait_type": "Local", "value": "CASA CONECTADA CLARO" }
+    ],
     "date": 1691578643
 }

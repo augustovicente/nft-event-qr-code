@@ -1,6 +1,10 @@
 {
     "name": "Hacktown - 2023-2",
     "description": "PALCO ROCAMBOLE",
-    "animation_url": "ipfs://bafybeiarial6darfywfu6dui4cnj2ybvp7dkpe4mskmjpufau7eqcvfvke/7.jpg",
+    "animation_url": "ipfs://bafybeiarial6darfywfu6dui4cnj2ybvp7dkpe4mskmjpufau7eqcvfvke/7.mp4",
+    "attributes": [
+        { "trait_type": "Ano", "value": "2023" },
+        { "trait_type": "Local", "value": "PALCO ROCAMBOLE" }
+    ],
     "date": 1691578643
 }

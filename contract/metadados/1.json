@@ -1,6 +1,10 @@
 {
     "name": "Hacktown - 2016",
     "description": "Prédio 1 - Inatel",
-    "animation_url": "ipfs://bafybeiarial6darfywfu6dui4cnj2ybvp7dkpe4mskmjpufau7eqcvfvke/1.jpg",
+    "animation_url": "ipfs://bafybeiarial6darfywfu6dui4cnj2ybvp7dkpe4mskmjpufau7eqcvfvke/1.mp4",
+    "attributes": [
+        { "trait_type": "Ano", "value": "2016" },
+        { "trait_type": "Local", "value": "Prédio 1 - Inatel" }
+    ],
     "date": 1691578643
 }
