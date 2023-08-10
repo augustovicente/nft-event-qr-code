@@ -32,7 +32,7 @@ const errorHandler = (error: any) => {
 };
 
 // Intercerpetor de requisições
-api.interceptors.request.use((config) => {
+api.interceptors.request.use((config: any) => {
     const token = localStorage.getItem(`${PREFIX_AUTH}:token`);
 
     if (token !== null) {

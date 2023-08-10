@@ -25,12 +25,11 @@ export default createGlobalStyle`
 
     body {
         position: relative;
-        font-family: ${({ theme }) => theme.fontFamily.inter}, sans-serif;
+        font-family: ${({ theme }) => theme.fontFamily.default}, sans-serif;
         font-size: 1rem; // 16px
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased !important;
         font-weight: 400;
-        background: ${({ theme }) => theme.colors.dark};
         width: 100%;
     }
     html, body, #root, .App {

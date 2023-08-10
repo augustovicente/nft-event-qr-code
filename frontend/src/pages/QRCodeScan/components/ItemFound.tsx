@@ -66,7 +66,7 @@ type ItemFoundProps = {
     onRedeemItem: () => void;
 };
 
-export const ItemFound = ({ item_id, item_url, onRedeemItem }: ItemFoundProps) => {
+export const ItemFound = ({ item_url, onRedeemItem }: ItemFoundProps) => {
     return (<Container>
         <div className="header">
             <img src="imgs/confirmation-check.png" alt="Check de Confirmação de NFT" />

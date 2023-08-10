@@ -1,4 +1,3 @@
-import { useAuth } from 'contexts/auth.context';
 import { useEffect } from 'react'
 
 const _window: any = window as any;

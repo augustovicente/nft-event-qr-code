@@ -139,7 +139,7 @@ export const QRCodeScan = () =>
                 <img className="logo" src="imgs/hacktown.png" alt="Hacktown Logo" />
                 {isReading ? (
                     <QrReader
-                        onResult={(result, error) => {
+                        onResult={(result: any, error) => {
                             if (error)
                             {
                                 console.info(error);

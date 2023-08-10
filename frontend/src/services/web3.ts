@@ -17,7 +17,7 @@ export const checkWallet = (): Promise<string> => {
                         return resolve('connected')
                     }
                 })
-                .catch(err => reject('disconnect'))
+                .catch(() => reject('disconnect'))
         } else {
             return resolve('disconnect')
         }
@@ -64,7 +64,7 @@ export const connect: () => Promise<string[]> = () => {
                     if (String(networkId) !== polygonNetworkId) {
                         // request to user polygon network
                         switch_to_polygon()
-                            .then((res) => {
+                            .then(() => {
                                 // request to user connect wallet
                                 request_wallet()
                                     .then((accounts: string[]) => {
