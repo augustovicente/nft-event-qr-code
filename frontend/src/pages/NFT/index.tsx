@@ -42,7 +42,11 @@ export const NFT = () => {
 
         let _wallet = wallet;
         if (!wallet) {
-            const wallets = await connect();
+            const wallets = await connect().catch((error) => {
+                console.error(error);
+                setMetamaskModal(true);
+                return;
+            });
             if (!wallets) return;
             _wallet = wallets[0];
         }
@@ -104,7 +108,7 @@ export const NFT = () => {
                 setWallet(wallets[0]);
             }).catch((error) => {
                 console.error(error);
-                setMetamaskModal(true);
+                // setMetamaskModal(true);
                 return;
             });
         }
