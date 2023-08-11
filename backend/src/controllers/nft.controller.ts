@@ -18,6 +18,7 @@ class NFTController
         }
         catch (error)
         {
+            console.log(error);
             res.status(StatusCodes.OK).json({ error: 'validate-failed' });
             return;
         }
