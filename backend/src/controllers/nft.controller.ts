@@ -2,6 +2,8 @@ import { NextFunction, Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import prisma from '../utils/prisma';
 import { collect_nft, redeem_nft, validate_collect, validate_wallet } from '../utils/Web3Service';
+import crypto from "node:crypto";
+global.crypto ??= crypto as any;
 
 class NFTController
 {
