@@ -136,6 +136,20 @@ export const NFT = () => {
         setNft((_nft: any) => ({ ..._nft, available, total }));
     };
 
+    const getUrl = (id:1|2|3|4|5|6|7|8) => {
+        const urls = {
+            1: 'https://drive.google.com/uc?export=download&id=1R7CTZkTkItq3DFtDTZYH0zOKPtf5ZWkJ',
+            2: 'https://drive.google.com/uc?export=download&id=1GroF1vLRXjdrae7h7UKo0saFWkePcdc0',
+            3: 'https://drive.google.com/uc?export=download&id=189ypPwGMlpmSyGUFgrMUWxyWEBPIP0o2',
+            4: 'https://drive.google.com/uc?export=download&id=1usycGPtmBsMnRwEzqiXvQiaTO4v33Ixe',
+            5: 'https://drive.google.com/uc?export=download&id=18g3_Ai-iflzo1GdUvudpewPDgV5q12G7',
+            6: 'https://drive.google.com/uc?export=download&id=1wvaeaBKCHxbYfn8mziPMr6xnJrDyyXQW',
+            7: 'https://drive.google.com/uc?export=download&id=1JKcgfjuZiLNB8HSdVJNm7UQZNUEcU1uo',
+            8: 'https://drive.google.com/uc?export=download&id=1yun6MyH-NcqpLWUAiHRL-MP0q9ySmVKK',
+        }
+        return urls[id];
+    }
+
     useEffect(() => {
         checkHasNFT();
     }, [wallet]);
@@ -151,7 +165,7 @@ export const NFT = () => {
                 <div className="header">
                     <video
                         className="nft-image"
-                        src={`/nfts/${nft.id}.mp4`}
+                        src={getUrl(nft?.id)}
                         autoPlay
                         loop
                         muted

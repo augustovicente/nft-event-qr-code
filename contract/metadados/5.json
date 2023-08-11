@@ -2,6 +2,7 @@
     "name": "Hacktown - 2022",
     "description": "PONTE",
     "animation_url": "ipfs://bafybeiarial6darfywfu6dui4cnj2ybvp7dkpe4mskmjpufau7eqcvfvke/5.mp4",
+    "image": "ipfs://bafybeievj4c37aouu65l7nm4rraemljt3mmdhclwmmpcgi5exiky6eahpe/5.gif",
     "attributes": [
         { "trait_type": "Ano", "value": "2022" },
         { "trait_type": "Local", "value": "PONTE" }

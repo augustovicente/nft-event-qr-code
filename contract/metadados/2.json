@@ -2,6 +2,7 @@
     "name": "Hacktown - 2017",
     "description": "SESC SENAC",
     "animation_url": "ipfs://bafybeiarial6darfywfu6dui4cnj2ybvp7dkpe4mskmjpufau7eqcvfvke/2.mp4",
+    "image": "ipfs://bafybeievj4c37aouu65l7nm4rraemljt3mmdhclwmmpcgi5exiky6eahpe/2.gif",
     "attributes": [
         { "trait_type": "Ano", "value": "2017" },
         { "trait_type": "Local", "value": "SESC SENAC" }
