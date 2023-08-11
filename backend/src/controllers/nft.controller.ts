@@ -19,6 +19,7 @@ class NFTController
         catch (error)
         {
             res.status(StatusCodes.OK).json({ error: 'validate-failed' });
+            return;
         }
 
         if (collect === 'already-collected')
@@ -38,17 +39,21 @@ class NFTController
             }
             catch (error)
             {
-                res.status(StatusCodes.OK).json({ error: 'collect-failed' });    
+                res.status(StatusCodes.OK).json({ error: 'collect-failed' });   
+                return;
             }
             res.status(StatusCodes.OK).json({ success: true });
+            return;
         }
         else if (!hasItem)
         {
             res.status(StatusCodes.OK).json({ error: 'item-sold-out' });
+            return;
         }
         else if (!isNotCollected)
         {
             res.status(StatusCodes.OK).json({ error: 'item-already-collected' });
+            return;
         }
     }
     async validate_wallet(req: Request, res: Response, next: NextFunction)
