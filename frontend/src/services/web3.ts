@@ -1,6 +1,7 @@
 import { api } from "services/api";
 import Web3 from "web3";
 import { abi, contract_address } from "./contract";
+import detectEthereumProvider from '@metamask/detect-provider';
 
 const _window: any = window as any;
 const provider: any = _window.ethereum;
@@ -103,7 +104,20 @@ export const connect: () => Promise<string[]> = () => {
                     }
                 })
         } else {
-            reject({ error: 'Metamask not installed' });
+            detectEthereumProvider().then((provider: any) => {
+                if (provider) {
+                    _window.ethereum = provider;
+                    connect()
+                        .then((res) => {
+                            resolve(res)
+                        })
+                        .catch((err) => {
+                            reject(err)
+                        })
+                } else {
+                    reject({ error: 'Metamask not installed' });
+                }
+            })
         }
     })
 }
