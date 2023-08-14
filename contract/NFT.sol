@@ -21,8 +21,8 @@ contract Contract is ERC1155, Ownable
 
     mapping(address => NFTUsage[]) UsagePerUser;
 
-    address public the_owner = 0x53FdA1A0b66E8A452d4088E635a0684ebf9163c2;
-    string public baseURI = "ipfs://bafybeieolypoxej7ecg3ti6nwjeck6u76yimejcklwwbe74xcmh5hqvvoq/";
+    address public the_owner = 0xf0A35E3A4De6d00605FEE4c243aDf2F5Fd505De6;
+    string public baseURI = "ipfs://bafybeifun2giby5anmh4a5moce76pgt425x7m3ty7kgunppdvqrlt34siq/";
     string public baseExtension = ".json";
 
     constructor() ERC1155("")
