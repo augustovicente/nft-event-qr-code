@@ -173,6 +173,7 @@ export const NFT = () => {
                         autoPlay
                         loop
                         muted
+                        playsInline
                     />
                     {!isCollected && nft.available && nft.total && (<span className="amount">
                         {nft.available}/{nft.total}
